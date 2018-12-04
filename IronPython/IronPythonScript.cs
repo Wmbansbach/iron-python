@@ -8,22 +8,25 @@ namespace RABTAXES_SOURCE
 {
     class IronPythonScript
     {
-    /*
-    * Awesome Way to embed python scripts with iron python
+        
+    /* Awesome Way to embed python scripts with iron python
     * ensure that python modules are not C based (matplot, pandas)
     * IronPython still does not support these modules at runtime
-    * 
+    */ 
     public dManager(string date, string amount, string gas, dictUtil tools)
     {
         // Object array created to pass parameters to python script
         object[] param = new object[] {date, amount, gas, tools.expenses};
+        
         // Creating IronPython interpreter
         ScriptEngine p_engine = Python.CreateEngine();
+        
         // Defining script path
         string pythonPath = @"C:\Users\remov\Desktop\C#\dataManager.py";
 
         // Directing engine to correct python library search paths
         ICollection<string> paths = p_engine.GetSearchPaths();
+        
         string dir = @"C:\Python35\Lib";
         paths.Add(dir);
         string _dir = @"C:\Python35\Lib\site-packages";
@@ -33,6 +36,7 @@ namespace RABTAXES_SOURCE
         // Create source and scope for Python script
         ScriptSource p_source = p_engine.CreateScriptSourceFromFile(pythonPath);
         ScriptScope p_scope = p_engine.CreateScope();
+        
         // Executing source code in scope
         p_source.Execute(p_scope);
 
@@ -42,9 +46,9 @@ namespace RABTAXES_SOURCE
         // call the instantiated member giving the method to be called and its parameters
         var result = p_engine.Operations.InvokeMember(testClass, "manage", param);
         MessageBox.Show("Program has completed!");
+        
         // Exiting Application
         Application.Exit();
     }
-    */
     }
 }
